@@ -21,6 +21,9 @@
       "url": "https://github.com/uber/image-diff/blob/master/LICENSE-MIT"
     }
   ],
+  "bin": {
+    "image-diff": "bin/image-diff"
+  },
   "main": "lib/image-diff",
   "engines": {
     "node": ">= 0.8.0"
