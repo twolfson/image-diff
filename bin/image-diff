@@ -1,0 +1,27 @@
+#!/usr/bin/env node
+// Load in our dependencies
+var program = require('commander');
+var pkg = require('../package.json');
+var imageDiff = require('../');
+
+// Configure our CLI
+program.name = pkg.name;
+program
+  .version(pkg.version)
+  .usage('[options] <actual-file> <expected-file> [diff-file]');
+
+// Run our diff
+imageDiff({
+  actualImage: program.actualFile,
+  expectedImage: program.expectedFile,
+  diffImage: program.diffFile,
+}, function handleImageDiff (err, imagesAreSame) {
+  // If there was an error, throw it
+  if (err) {
+    throw err;
+  }
+
+  // Otherwise, exit based on the result
+  var exitCode = imagesAreSame ? 0 : 1;
+  process.exit(exitCode);
+});
