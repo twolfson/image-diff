@@ -9,6 +9,7 @@ program.name = pkg.name;
 program
   .version(pkg.version)
   .usage('[options] <actual-image> <expected-image> [diff-image]')
+  .option('--shadow', 'Draw a shadow of unchanges parts on diff image')
   .action(function handleRun (actualImage, expectedImage, diffImage, program) {
     // If there is no program, then assume diffImage was left out
     if (program === undefined) {
@@ -19,8 +20,9 @@ program
     // Run our diff
     imageDiff({
       actualImage: actualImage,
+      diffImage: diffImage,
       expectedImage: expectedImage,
-      diffImage: diffImage
+      shadow: program.shadow
     }, function handleImageDiff (err, imagesAreSame) {
       // If there was an error, throw it
       if (err) {
