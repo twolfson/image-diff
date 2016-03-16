@@ -8,20 +8,28 @@ var imageDiff = require('../');
 program.name = pkg.name;
 program
   .version(pkg.version)
-  .usage('[options] <actual-file> <expected-file> [diff-file]');
+  .usage('[options] <actual-image> <expected-image> [diff-image]')
+  .action(function handleRun (actualImage, expectedImage, diffImage, program) {
+    // If there is no program, then assume diffImage was left out
+    if (program === undefined) {
+      program = diffImage;
+      diffImage = undefined;
+    }
 
-// Run our diff
-imageDiff({
-  actualImage: program.actualFile,
-  expectedImage: program.expectedFile,
-  diffImage: program.diffFile,
-}, function handleImageDiff (err, imagesAreSame) {
-  // If there was an error, throw it
-  if (err) {
-    throw err;
-  }
+    // Run our diff
+    imageDiff({
+      actualImage: actualImage,
+      expectedImage: expectedImage,
+      diffImage: diffImage
+    }, function handleImageDiff (err, imagesAreSame) {
+      // If there was an error, throw it
+      if (err) {
+        throw err;
+      }
 
-  // Otherwise, exit based on the result
-  var exitCode = imagesAreSame ? 0 : 1;
-  process.exit(exitCode);
-});
+      // Otherwise, exit based on the result
+      var exitCode = imagesAreSame ? 0 : 1;
+      process.exit(exitCode);
+    });
+  });
+program.parse(process.argv);
