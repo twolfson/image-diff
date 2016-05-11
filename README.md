@@ -33,9 +33,9 @@ imageDiff({
 ```
 
 ## Documentation
-`image-diff` exposes a function for you to callback with.
+`image-diff` exposes the function `imageDiff` as its export.
 
-### `diffImages(options, cb)`
+### `imageDiff(options, cb)`
 Create an differential image between multiple images
 
 - options `Object`
