@@ -79,6 +79,16 @@ imageDiff({
 });
 ```
 
+### `imageDiff.getRawResult(options, cb)`
+Same as `imageDiff` but yields raw CLI result
+
+- options `Object` - See `imageDiff#options`
+- cb `Function` - Error-first function to handle diff result
+    - `cb` should have the signature `function (err, result)`
+    - err `Error|null` - If there was an error in diffing, this will be it
+    - result `String` - Result from ImageMagick's `compare` command
+        - Example output can be found here: http://www.imagemagick.org/discourse-server/viewtopic.php?f=1&t=17284
+
 ### CLI usage
 We offer an `image-diff` executable to diff from the CLI. When images match, its exit code will be `0`. When they don't match, then it will be non-zero (e.g. `1`).
 
