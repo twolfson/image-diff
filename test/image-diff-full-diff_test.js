@@ -1,8 +1,4 @@
 var assert = require('assert');
-var fs = require('fs');
-var os = require('os');
-var rimraf = require('rimraf');
-var imageUtils = require('./utils/image.js');
 var imageDiff = require('../lib/image-diff.js');
 
 function runFullDiff(options) {
