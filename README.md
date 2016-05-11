@@ -70,7 +70,7 @@ Same as `imageDiff` but yields a fuller result
 
 ```javascript
 var imageDiff = require('image-diff');
-imageDiff({
+imageDiff.getFullResult({
   actualImage: 'checkerboard.png',
   expectedImage: 'white.png',
   diffImage: 'difference.png',
