@@ -75,7 +75,7 @@ imageDiff({
   expectedImage: 'white.png',
   diffImage: 'difference.png',
 }, function (err, result) {
-  // result = {total: 50, difference: 0.5}
+  // result = {total: 46340.2, difference: 0.707107}
 });
 ```
 
