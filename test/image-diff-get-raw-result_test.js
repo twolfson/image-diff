@@ -1,45 +1,43 @@
 var assert = require('assert');
 var imageDiff = require('../lib/image-diff.js');
 
-function runFullDiff(options) {
+function getRawResult(options) {
   before(function (done) {
     var that = this;
-    imageDiff.fullDiff(options, function (err, fullResult) {
+    imageDiff.getRawResult(options, function (err, rawResult) {
       that.err = err;
-      that.fullResult = fullResult;
+      that.rawResult = rawResult;
       done();
     });
   });
   after(function cleanup () {
     delete this.err;
-    delete this.fullResult;
+    delete this.rawResult;
   });
 }
 
-describe('imageDiff.fullDiff', function () {
+describe('imageDiff.getRawResult', function () {
   describe('diffing different images', function () {
-    runFullDiff({
+    getRawResult({
       actualImage: __dirname + '/test-files/checkerboard.png',
       expectedImage: __dirname + '/test-files/white.png',
       diffImage: __dirname + '/actual-files/different.png'
     });
 
-    it('calls back with differences in full result', function () {
-      assert.strictEqual(this.fullResult.total, 46340.2);
-      assert.strictEqual(this.fullResult.percentage, 0.707107);
+    it('calls back with differences in the raw result', function () {
+      assert(this.rawResult.indexOf('all: 46340.2 (0.707107)') !== -1);
     });
   });
 
   describe('diffing the same image', function () {
-    runFullDiff({
+    getRawResult({
       actualImage: __dirname + '/test-files/checkerboard.png',
       expectedImage: __dirname + '/test-files/checkerboard.png',
       diffImage: __dirname + '/actual-files/same.png'
     });
 
-    it('calls back with no differences in full result', function () {
-      assert.strictEqual(this.fullResult.total, 0);
-      assert.strictEqual(this.fullResult.percentage, 0);
+    it('calls back with no differences in the raw result', function () {
+      assert(this.rawResult.indexOf('all: 0 (0)') !== -1);
     });
   });
 });
